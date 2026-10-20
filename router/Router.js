@@ -1,11 +1,14 @@
-import Route from "./router/Route.js";
-
+import Route from "./Route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
+
 // Création d'une route pour la page 404 (page introuvable)
-const route404 = new Route("404", "Page introuvable", "/pages/404.html");
+const route404 = new Route("404", "Page introuvable", "./pages/404.html");
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
   let currentRoute = null;
+  if (url === "/index.html") {
+    url = "/";
+  }
   // Parcours de toutes les routes pour trouver la correspondance
   allRoutes.forEach((element) => {
     if (element.url == url) {
