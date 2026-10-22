@@ -2,7 +2,7 @@ import Route from "./Route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
 // Création d'une route pour la page 404 (page introuvable)
-const route404 = new Route("404", "Page introuvable", "./pages/404.html");
+const route404 = new Route("404", "Page introuvable", "./pages/404.html", []);
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
   let currentRoute = null;
@@ -39,6 +39,7 @@ const LoadContentPage = async () => {
     }
     else{
       const roleUser = getRole();
+      console.log("Valeur brute du rôle :", JSON.stringify(roleUser));
       if(!allRolesArray.includes(roleUser)){
         window.location.replace("/");
       }
@@ -62,14 +63,15 @@ const LoadContentPage = async () => {
   document.title = actualRoute.title + " - " + websiteName;
 
   // Afficher et masquer les élements en fonction du rôle
-  showAndHideElementForRoles();
+ showAndHideElementsForRoles();
 };
 // Fonction pour gérer les événements de routage (clic sur les liens)
 const routeEvent = (event) => {
   event = event || window.event;
   event.preventDefault();
   // Mise à jour de l'URL dans l'historique du navigateur
-  window.history.pushState({}, "", event.target.href);
+  const link = event.target.closest("a");
+window.history.pushState({}, "", link.href);
   // Chargement du contenu de la nouvelle page
   LoadContentPage();
 };
