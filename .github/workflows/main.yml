@@ -15,7 +15,8 @@ jobs:
         with:
           server: ftp-quai-antique.alwaysdata.net
           port: 21
-          protocol: ftp
+          protocol: ftps
+          security: explicit
           username: quai-antique
           password: ${{ secrets.ftp_password }}
           server-dir: ./www/
