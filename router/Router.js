@@ -53,7 +53,7 @@ const LoadContentPage = async () => {
   // Ajout du contenu JavaScript
   if (actualRoute.pathJS != "") {
     // Création d'une balise script
-    var scriptTag = document.createElement("script");
+    let scriptTag = document.createElement("script");
     scriptTag.setAttribute("type", "text/javascript");
     scriptTag.setAttribute("src", actualRoute.pathJS);
     // Ajout de la balise script au corps du document
@@ -67,17 +67,17 @@ const LoadContentPage = async () => {
 };
 // Fonction pour gérer les événements de routage (clic sur les liens)
 const routeEvent = (event) => {
-  event = event || window.event;
+  
   event.preventDefault();
   // Mise à jour de l'URL dans l'historique du navigateur
   const link = event.target.closest("a");
 window.history.pushState({}, "", link.href);
   // Chargement du contenu de la nouvelle page
-  LoadContentPage();
+  void LoadContentPage();
 };
 // Gestion de l'événement de retour en arrière dans l'historique du navigateur
 window.onpopstate = LoadContentPage;
 // Assignation de la fonction routeEvent à la propriété route de la fenêtre
 window.route = routeEvent;
 // Chargement du contenu de la page au chargement initial
-LoadContentPage();
+void LoadContentPage();
