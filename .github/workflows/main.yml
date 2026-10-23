@@ -1,28 +1,27 @@
-on: push
 name: 🚀 Deploy website on push
+
+on: push
+
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
-    
-    - name: 📂 Sync files SFTP
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-      with:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
           server: ftp-quai-antique.alwaysdata.net
-          port: 22
+          port: 21
+          protocol: ftps-legacy
           username: quai-antique
           password: ${{ secrets.ftp_password }}
-          protocol: sftp
-          server-dir: /www/
+          server-dir: ./www/
           exclude: |
-              **/.git*
-              **/.git*/**
-              **/node_modules/bootstrap/scss/**
-              **/node_modules/bootstrap/js/**
-              **/node_modules/bootstrap-icons/icons/**
-
-
-   
+            **/.git*
+            **/.git*/**
+            **/node_modules/bootstrap/scss/**
+            **/node_modules/bootstrap/js/**
+            **/node_modules/bootstrap-icons/icons/**
