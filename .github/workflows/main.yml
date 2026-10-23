@@ -12,10 +12,10 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.4.0
       with:
           server: ftp-quai-antique.alwaysdata.net
-          port: 21
+          port: 22
           username: quai-antique
           password: ${{ secrets.ftp_password }}
-          protocol: ftps
+          protocol: sftp
           server-dir: /www/
           exclude: |
               **/.git*
