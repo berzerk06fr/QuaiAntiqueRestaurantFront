@@ -5,12 +5,12 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v4
-
-      - name: 📁 Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v6
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+      with:
           server: ftp-quai-antique.alwaysdata.net
           port: 22
           username: quai-antique
