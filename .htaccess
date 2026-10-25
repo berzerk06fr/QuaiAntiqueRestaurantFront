@@ -1,8 +1,16 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+
+  # 1. Ne rien rediriger si le fichier ou le dossier existe réellement sur le serveur
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 2. Ignorer formellement toutes les requêtes vers les fichiers statiques (js, css, png, jpg, etc.)
+  RewriteCond %{REQUEST_URI} \.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$ [NC]
+  RewriteRule ^ - [L]
+
+  # 3. Rediriger le reste (les routes SPA) vers index.html
+  RewriteRule ^ index.html [L]
 </IfModule>
